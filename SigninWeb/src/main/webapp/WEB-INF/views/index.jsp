@@ -16,7 +16,16 @@
 	<div id="menu">
 		<ul>
 			<li id="logo">ezen</li>
+			<li><a href="<c:url value='/'/>">Home</a></li>
+			<li><a href="<c:url value='/board/list'/>">Board</a></li>
+			<li><a href="<c:url value='/login/login'/>"> Login</a></li>
+			<li><a href="<c:url value='/register/add'/>">SignUp</a></li>
 		</ul>
+	</div>
+	<div id="text" style="text-align: center;">
+		<h1>세상을 바꾸는 선혜!</h1>
+		<h1>다음 세대에게 더 나은 세상을!</h1>
+		<h1>지구를 사랑하는 마음!</h1>
 	</div>
 </body>
 </html>
