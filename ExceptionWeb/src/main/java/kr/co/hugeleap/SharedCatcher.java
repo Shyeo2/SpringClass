@@ -13,16 +13,15 @@ import org.springframework.http.HttpStatus;
 @ControllerAdvice		// 모든 컨트롤러에서 발생하는 예외 다 처리하게 됨 (모든 패키지에 적용)
 public class SharedCatcher {
 	
-//	@ExceptionHandler(Exception.class) 
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(Exception.class) 
 	public String catcher(Exception ex, Model m) {
 		System.out.println("catcher() inSharedCatcher");
 		System.out.println("m =" + m.getAttribute("msg"));	// 다른 모델을 사용하고 있음 
 		m.addAttribute("ex", ex);					//예외정보가 모델에 담겨서 뷰에 전달된 것임
 		return "error";
 	}
-//	@ExceptionHandler({NullPointerException.class, FileNotFoundException.class}) 
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	
+	@ExceptionHandler({NullPointerException.class, FileNotFoundException.class}) 
 	public String catcher2(Exception ex, Model m) {
 		m.addAttribute("ex", ex);
 		return "error";
