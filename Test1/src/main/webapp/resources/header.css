@@ -1,0 +1,31 @@
+@charset "UTF-8";
+.logo{
+  width: 40px;
+  height: 40px;
+}
+
+/* header */
+.dropdown-hover:hover>.dropdown-menu {
+  display: inline-block;
+}
+.dropdown-hover>.dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+  pointer-events: none;
+}
+
+
+/*퀵메뉴 이미지*/
+#header_navi > li {
+  display: inline-block;
+  position: relative;
+}
+#header_navi > li > a {
+  display:block; position:relative; padding-bottom:19px;
+  margin: 50px;
+}
+#header_navi > li > a > img {
+  width:50px; height:50px;
+}
+#header_navi > li > a > span {
+  position:absolute; bottom:0; left:50%; color:#666; line-height:1.462em; white-space:nowrap; transform:translate(-50%, 0)
+}
