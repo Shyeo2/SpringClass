@@ -2,8 +2,98 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
 <mapper namespace="kr.co.heart.dao.BoardMapper">
 	
+	<sql id="selectFromBoard">
+		SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+		FROM public.t_board
+	</sql>
 	
+	<select id="select" parameterType="int" resultType="BoardDto">
+		<include refid="selectFromBoard" />
+		where bno = #{bno}
+	</select>
 	
+	<delete id="deleteAll">
+		delete from t_board 
+	</delete>
+	
+	<delete id="delete" parameterType="map">
+		delete from t_board where bno = #{bno} and writer = #{writer};
+	</delete>
+	
+	<delete id="deleteForAdmin">
+		delete from t_board where bno = #{bno} 
+	</delete>
+	
+	<insert id="insert" parameterType="BoardDto">
+		INSERT INTO t_board 
+			(title, content, writer)
+		VALUES
+			(#{title}, #{content}, #{writer})
+	</insert>
+	
+	<select id="count" resultType="int">
+		select count(*) from t_board
+	</select>
+	
+	<select id="selectPage" parameterType="map" resultType="BoardDto">
+		<include refid="selectFromBoard" />
+		order by reg_date desc, bno desc 
+		limit #{pageSize} offset #{offset}
+	</select>
+	
+	<select id="searchSelectPage" parameterType="SearchItem" resultType="SearchItem">
+		select bno, title, "content", writer, view_cnt , comment_cnt , reg_date 
+		from t_board 
+		where true 
+		and title like concat('%', '#{keyword}', '%')
+		order by reg_date desc, bno desc 
+		limit #{pageSize} offset #{offset} 
+	</select>
+	
+	<select id="searchResultCnt" parameterType="SearchItem" resultType="int">
+		select count(*)
+		from t_board 
+		where true 
+		and title like concat('%','#{keyword}', '%')
+		order by reg_date desc, bno desc 
+		limit #{pageSize} offset #{offset} 
+	</select>
+	
+	<update id="increaseViewCnt" parameterType="int">
+		update t_board
+		set view_cnt = view_cnt + 1
+		where bno = #{bno}
+		
+	</update>
+	
+	<update id="update" parameterType="BoardDto">
+		UPDATE public.t_board
+		SET title=#{title}, content=#{content}, up_date = now() 
+		WHERE bno= #{bno} and writer= #{writer}
+		
+	</update>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
