@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="kr.co.heart.dao.CommentMapper">
+  	
+  	<select id="selectAll" parameterType="int" resultType="CommentDto">
+  		select cno, bno, pcno, "comment" , commenter, reg_date , up_date 
+		from t_comment 
+		where bno = #{bno}
+		order by reg_date, cno
+  	</select>
+  	
+  	<!--어떤 게시글의 댓글을 지울지 where로 설정   -->
+  	<delete id="deleteAll"  parameterType="int">
+  		delete from t_comment 
+		where bno = #{bno}
+  	</delete>
+  	
+  	<delete id="delete" parameterType="map">
+  		delete from t_comment where cno = #{cno} and commenter = #{commenter}
+  	</delete>
+  	
+  	<insert id="insert" parameterType="CommentDto" >
+  		INSERT INTO t_comment
+		(bno, pcno, comment, commenter, reg_date, up_date)
+		VALUES
+		(#{bno}, #{pcno}, #{comment},#{commenter} , now(), now());
+  		
+  	</insert>
+  	
+  	<update id="update" parameterType="CommentDto">
+  		update t_comment
+		set comment = #{comment}, up_date = now()
+		where cno = #{cno} and commenter = #{commenter}
+  	</update>
+  </mapper>
